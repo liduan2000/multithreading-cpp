@@ -5,7 +5,7 @@
 #include <vector>
 
 class A {
-   public:
+  public:
     int read() const {
         std::shared_lock<std::shared_mutex> l(sm_);
         return n_;
@@ -18,7 +18,7 @@ class A {
 
     int getN() const { return n_; }
 
-   private:
+  private:
     mutable std::shared_mutex sm_;
     int n_ = 0;
 };
@@ -29,8 +29,8 @@ int main() {
     std::vector<std::thread> readThreads;
     std::vector<std::thread> writeThreads;
     for (int i = 0; i < N; ++i) {
-        readThreads.emplace_back(A::read, &a);
-        writeThreads.emplace_back(A::write, &a);
+        readThreads.emplace_back([&a]() { a.read(); });
+        writeThreads.emplace_back([&a]() { a.write(); });
     }
     for (int i = 0; i < N; ++i) {
         readThreads[i].join();

@@ -11,9 +11,7 @@ struct Divide {
         try {
             if (b == 0) throw std::runtime_error("Illegal division by zero!");
             promise.set_value(a / b);
-        } catch (...) {
-            promise.set_exception(std::current_exception());
-        }
+        } catch (...) { promise.set_exception(std::current_exception()); }
     }
 };
 
@@ -23,9 +21,7 @@ struct Requestor {
         std::cout << "thread id(" << std::this_thread::get_id() << "): ";
         try {
             std::cout << shdFuture.get() << std::endl;
-        } catch (const std::exception& e) {
-            std::cout << e.what() << std::endl;
-        }
+        } catch (const std::exception& e) { std::cout << e.what() << std::endl; }
     }
 };
 

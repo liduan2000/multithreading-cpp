@@ -4,7 +4,7 @@
 #include <utility>
 
 class ScopedThread {
-   public:
+  public:
     explicit ScopedThread(std::thread t) : t_(std::move(t)) {
         if (!t_.joinable()) throw std::logic_error("No thread");
     }
@@ -12,7 +12,7 @@ class ScopedThread {
     ScopedThread(ScopedThread&) = delete;
     ScopedThread& operator=(ScopedThread const&) = delete;
 
-   private:
+  private:
     std::thread t_;
 };
 

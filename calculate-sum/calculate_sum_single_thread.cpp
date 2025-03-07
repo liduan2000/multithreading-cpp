@@ -1,7 +1,5 @@
-#include <algorithm>
 #include <chrono>
 #include <iostream>
-#include <mutex>
 #include <numeric>
 #include <random>
 #include <vector>

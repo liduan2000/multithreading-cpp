@@ -8,7 +8,7 @@ void func(int x) {
 }
 
 class FuncObject {
-   public:
+  public:
     void operator()(int x) const {
         std::cout << "Hey, I'm thread " << std::this_thread::get_id() << std::endl;
         std::cout << "Argument passed in: " << x << std::endl;

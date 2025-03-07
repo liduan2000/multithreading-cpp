@@ -4,7 +4,7 @@
 #include <vector>
 
 class Spinlock {
-   public:
+  public:
     Spinlock() : flag_(ATOMIC_FLAG_INIT) {}
 
     void lock() {
@@ -13,7 +13,7 @@ class Spinlock {
 
     void unlock() { flag_.clear(std::memory_order_release); }
 
-   private:
+  private:
     std::atomic_flag flag_;
 };
 
@@ -29,12 +29,8 @@ int main() {
             spinlock.unlock();
         }
     };
-    for (int i = 0; i < N; ++i) {
-        threads.emplace_back(increment);
-    }
-    for (auto& t : threads) {
-        t.join();
-    }
+    for (int i = 0; i < N; ++i) { threads.emplace_back(increment); }
+    for (auto& t : threads) { t.join(); }
 
     std::cout << count << std::endl;
 
