@@ -5,7 +5,7 @@
 #include <vector>
 
 class SumUp {
-   public:
+  public:
     SumUp(int begin, int end) : begin_(begin), end_(end) {}
 
     int operator()() {
@@ -14,7 +14,7 @@ class SumUp {
         return sum;
     }
 
-   private:
+  private:
     int begin_, end_;
 };
 
@@ -41,15 +41,11 @@ int main() {
 
     // 2. define tasks
     std::deque<std::packaged_task<int()>> tasks;
-    for (int i = 0; i < hwConReal; ++i) {
-        tasks.emplace_back(objects[i]);
-    }
+    for (int i = 0; i < hwConReal; ++i) { tasks.emplace_back(objects[i]); }
 
     // 3. get futures
     std::vector<std::future<int>> futures;
-    for (int i = 0; i < hwConReal; ++i) {
-        futures.emplace_back(tasks[i].get_future());
-    }
+    for (int i = 0; i < hwConReal; ++i) { futures.emplace_back(tasks[i].get_future()); }
 
     // 4. execute each task in a separate thread
     for (int i = 0; i < hwConReal; ++i) {
@@ -61,9 +57,7 @@ int main() {
 
     // 5. get results from futures
     int totalSum = 0;
-    for (int i = 0; i < hwConReal; ++i) {
-        totalSum += futures[i].get();
-    }
+    for (int i = 0; i < hwConReal; ++i) { totalSum += futures[i].get(); }
 
     std::cout << "Sum of 1-" << NUMBER << " is: " << totalSum << std::endl;
 

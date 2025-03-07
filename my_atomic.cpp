@@ -2,7 +2,7 @@
 #include <iostream>
 
 class MyAtomic {
-   private:
+  private:
     int i_;
     double d_;
     std::string* sptr_;

@@ -5,7 +5,7 @@
 std::string helloFunction(const std::string& s) { return "Hello C++11 from " + s + "."; }
 
 class HelloFunctionObject {
-   public:
+  public:
     std::string operator()(const std::string& s) const { return "Hello C++11 from " + s + "."; }
 };
 

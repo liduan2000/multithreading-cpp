@@ -4,7 +4,7 @@
 #include <thread>
 
 class A {
-   public:
+  public:
     void step1() {
         {
             std::lock_guard<std::mutex> l(m_);
@@ -28,7 +28,7 @@ class A {
         std::cout << "step3 done" << std::endl;
     }
 
-   private:
+  private:
     std::mutex m_;
     std::condition_variable cv_;
     bool step1Done_ = false;
