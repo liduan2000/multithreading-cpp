@@ -3,9 +3,9 @@
 #include <thread>
 #include <vector>
 
-class Spinlock {
+class SpinLock {
   public:
-    Spinlock() : flag_(ATOMIC_FLAG_INIT) {}
+    SpinLock() : flag_(ATOMIC_FLAG_INIT) {}
 
     void lock() {
         while (flag_.test_and_set(std::memory_order_acquire)) { std::this_thread::yield(); }
@@ -18,15 +18,15 @@ class Spinlock {
 };
 
 int main() {
-    Spinlock spinlock;
+    SpinLock spinLock;
     const int N = 4;
     int count = 0;
     std::vector<std::thread> threads;
     auto increment = [&]() {
         for (int i = 0; i < 1000; ++i) {
-            spinlock.lock();
+            spinLock.lock();
             ++count;
-            spinlock.unlock();
+            spinLock.unlock();
         }
     };
     for (int i = 0; i < N; ++i) { threads.emplace_back(increment); }
