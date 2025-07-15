@@ -16,7 +16,7 @@ void produce() {
 
 void consume() {
     std::string* p = nullptr;
-    while (!(p = ptr.load(std::memory_order_acquire))) std::this_thread::yield();
+    while (!(p = ptr.load(std::memory_order_acquire))) { std::this_thread::yield(); }
     std::cout << "atomicData: " << atomicData.load(std::memory_order_relaxed) << std::endl;
     std::cout << "data: " << data << std::endl;
     std::cout << "p: " << *p << std::endl;
