@@ -90,7 +90,7 @@ class MPSCQueue {
         const ptrdiff_t diff = static_cast<ptrdiff_t>(seq) - static_cast<ptrdiff_t>(pos + 1);
         if (diff == 0) {
             item = std::move(data_[idx].val);
-            data_[idx].seq.store(seq + N, std::memory_order_release);
+            data_[idx].seq.store(pos + N, std::memory_order_release);
             head_.store(pos + 1, std::memory_order_relaxed);
             return true;
         }
@@ -105,7 +105,7 @@ class MPSCQueue {
             const ptrdiff_t diff = static_cast<ptrdiff_t>(seq) - static_cast<ptrdiff_t>(pos + 1);
             if (diff == 0) {
                 item = std::move(data_[idx].val);
-                data_[idx].seq.store(seq + N, std::memory_order_release);
+                data_[idx].seq.store(pos + N, std::memory_order_release);
                 head_.store(pos + 1, std::memory_order_relaxed);
                 return true;
             } else if (diff < 0) {
@@ -177,7 +177,7 @@ class MPMCQueue {
         if (diff == 0) {
             if (head_.compare_exchange_strong(pos, pos + 1, std::memory_order_relaxed, std::memory_order_relaxed)) {
                 item = std::move(data_[idx].val);
-                data_[idx].seq.store(seq + N, std::memory_order_release);
+                data_[idx].seq.store(pos + N, std::memory_order_release);
                 return true;
             }
         }
@@ -193,7 +193,7 @@ class MPMCQueue {
             if (diff == 0) {
                 if (head_.compare_exchange_strong(pos, pos + 1, std::memory_order_relaxed, std::memory_order_relaxed)) {
                     item = std::move(data_[idx].val);
-                    data_[idx].seq.store(seq + N, std::memory_order_release);
+                    data_[idx].seq.store(pos + N, std::memory_order_release);
                     return true;
                 }
             } else if (diff < 0) { // is empty
